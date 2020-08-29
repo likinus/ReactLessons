@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FilmsPage from './pages/Films/FilmsPages';
+import CorrectPage from './pages/Films/CorrectPages';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Pages = {
+  FILMS: 'films'
+}
+
+const Menu = ({activeMenuItem, onMenuItemClick}) => <ul>
+  <li 
+  onClick={() => onMenuItemClick(Pages.FILMS)}
+  className={activeMenuItem === Pages.FILMS ? 'active-menu-item' : ''}>Films</li>
+</ul>
+
+class App extends React.Component {
+  state = {
+    page: Pages.FILMS
+  }
+
+  render() {
+    return (
+     <>
+      <Menu  activeMenuItem={this.state.page} onMenuItemClick={page => this.setState({page})}/>
+      {this.state.page === Pages.FILMS && <FilmsPage />}
+    </>
+    )
+  }
+
 }
 
 export default App;
